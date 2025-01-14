@@ -1041,6 +1041,7 @@ GameObject:
   - component: {fileID: 6364815805564399742}
   - component: {fileID: -2199962018677411743}
   - component: {fileID: 6335979177997786962}
+  - component: {fileID: 4740456004317748018}
   m_Layer: 8
   m_Name: PlayerArmature
   m_TagString: Player
@@ -1383,6 +1384,22 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   TransitionStateInfoList: []
   m_Animator: {fileID: 6982812146204527121}
+--- !u!114 &4740456004317748018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416926081852918481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: effe58a45c291df42986ee8e7559924b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  PlayerFollowCameraObject: {fileID: 2070925441746177671, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
+  mainCamera: {fileID: 8944336655422409498, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
+  cameraTarget: {fileID: 8338988566280778637}
 --- !u!1 &4523139366846529165
 GameObject:
   m_ObjectHideFlags: 0

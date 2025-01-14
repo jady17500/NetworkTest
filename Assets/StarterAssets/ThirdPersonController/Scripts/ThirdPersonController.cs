@@ -74,7 +74,10 @@ namespace StarterAssets
 
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
-
+        
+        [Header("Field of View")]
+        [SerializeField]private FieldOfView fieldOfView;
+        
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -104,7 +107,7 @@ namespace StarterAssets
         private Animator _animator;
         private CharacterController _controller;
         private StarterAssetsInputs _input;
-        private GameObject _mainCamera;
+        [HideInInspector]public GameObject mainCamera;
 
         private const float _threshold = 0.01f;
 
@@ -125,11 +128,13 @@ namespace StarterAssets
 
         private void Awake()
         {
+            
             // get a reference to our main camera
-            if (_mainCamera == null)
+            if (mainCamera == null)
             {
-                _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+                mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
+            
         }
 
         private void Start()
@@ -163,7 +168,7 @@ namespace StarterAssets
 
         private void LateUpdate()
         {
-            CameraRotation();
+            //CameraRotation();
         }
 
         private void AssignAnimationIDs()
@@ -256,7 +261,7 @@ namespace StarterAssets
             if (_input.move != Vector2.zero)
             {
                 _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
-                                  _mainCamera.transform.eulerAngles.y;
+                                  mainCamera.transform.eulerAngles.y;
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
                     RotationSmoothTime);
 
@@ -277,6 +282,10 @@ namespace StarterAssets
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
             }
+            fieldOfView.SetAimDirection(transform.forward);
+            Vector3 origin = transform.position;
+            origin.y +=1;
+            fieldOfView.SetOrigin(origin);
         }
 
         private void JumpAndGravity()

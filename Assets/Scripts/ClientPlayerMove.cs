@@ -28,6 +28,7 @@ public class ClientPlayerMove : NetworkBehaviour
             starterInputs.enabled = true;
             playerInputs.enabled = true;
             thirdPersonController.enabled = true;
+            gameObject.GetComponent<ClientFollowCamera>().SpawnCamera();
         }
     }
 }
