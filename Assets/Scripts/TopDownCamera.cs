@@ -3,9 +3,11 @@ using UnityEngine;
 public class TopDownCamera : MonoBehaviour
 {
     
-    public GameObject target;
-    
+    public Transform target;
+    public float distance;
     private Vector3 targetPos;
+    
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -15,9 +17,13 @@ public class TopDownCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        targetPos.y =target.transform.position.y+10f;
-        targetPos.x = target.transform.position.x;
-        targetPos.z = target.transform.position.z;
-        transform.position = targetPos;
+        if (target != null)
+        {
+            targetPos.y =target.transform.position.y+distance;
+            targetPos.x = target.transform.position.x;
+            targetPos.z = target.transform.position.z;
+            transform.position = targetPos;            
+        }
+
     }
 }

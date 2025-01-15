@@ -108,6 +108,7 @@ namespace StarterAssets
         private CharacterController _controller;
         private StarterAssetsInputs _input;
         [HideInInspector]public GameObject mainCamera;
+        private Camera _cameraComponent;
 
         private const float _threshold = 0.01f;
 
@@ -149,12 +150,13 @@ namespace StarterAssets
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
-
+        
             AssignAnimationIDs();
 
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
+            _cameraComponent= mainCamera.GetComponent<Camera>();
         }
 
         private void Update()
@@ -255,7 +257,8 @@ namespace StarterAssets
 
             // normalise input direction
             Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
-
+            
+            /*
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is a move input rotate player when the player is moving
             if (_input.move != Vector2.zero)
@@ -268,12 +271,13 @@ namespace StarterAssets
                 // rotate to face input direction relative to camera position
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
-
-
-            Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+            */
+            
+            Vector3 mousePos  = _cameraComponent.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,Input.mousePosition.y, mainCamera.transform.position.y));
+            transform.LookAt(mousePos+Vector3.up*transform.position.y);
 
             // move the player
-            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
+            _controller.Move(inputDirection * (_speed * Time.deltaTime) +
                              new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
             // update animator if using character
@@ -282,10 +286,6 @@ namespace StarterAssets
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
             }
-            fieldOfView.SetAimDirection(transform.forward);
-            Vector3 origin = transform.position;
-            origin.y +=1;
-            fieldOfView.SetOrigin(origin);
         }
 
         private void JumpAndGravity()

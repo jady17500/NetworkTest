@@ -1,11 +1,9 @@
- using Cinemachine;
+using System;
 using StarterAssets;
-using Unity.Netcode;
 using UnityEngine;
 
-public class ClientFollowCamera : MonoBehaviour
+public class OfflineCamera : MonoBehaviour
 {
-    
     public GameObject mainCamera;
     public Transform cameraTarget;
     
@@ -19,9 +17,8 @@ public class ClientFollowCamera : MonoBehaviour
     
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        SpawnCamera();
     }
 }
