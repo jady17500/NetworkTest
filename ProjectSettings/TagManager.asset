@@ -12,10 +12,10 @@ TagManager:
   - 
   - Water
   - UI
-  - Target
-  - Obstacle
-  - 
-  - 
+  - Mask
+  - BehindMask
+  - Object
+  - Black
   - 
   - 
   - 

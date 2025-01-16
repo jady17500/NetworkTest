@@ -16,15 +16,18 @@ public class FieldOfView : MonoBehaviour
     public int edgeCorrectionAccuracy;
     public float edgeDistanceThreshold;
     
-    public MeshFilter meshFilter;
+    public MeshFilter[] meshFilter;
     public Transform FOVObject;
     private Mesh viewMesh;
 
-    private void Start()
+    private void Awake()
     {
         viewMesh = new Mesh();
         viewMesh.name = "View Mesh";
-        meshFilter.mesh = viewMesh;
+        foreach (var filter in meshFilter)
+        {
+            filter.mesh = viewMesh;
+        }
     }
 
     private void LateUpdate()
