@@ -1,4 +1,5 @@
-﻿ using UnityEngine;
+﻿ using Unity.Netcode;
+ using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -163,7 +164,7 @@ namespace StarterAssets
         {
             _hasAnimator = TryGetComponent(out _animator);
 
-            JumpAndGravity();
+            //JumpAndGravity();
             GroundedCheck();
             Move();
         }
@@ -218,6 +219,7 @@ namespace StarterAssets
                 _cinemachineTargetYaw, 0.0f);
         }
 
+        [Rpc(SendTo.Server)]
         private void Move()
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed

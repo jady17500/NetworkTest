@@ -10,6 +10,7 @@ public class SetPlayerColour : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
+        print("Player Spawned");
         if (IsOwner)
         {
             GetComponent<MeshRenderer>().material.color = allyColour;

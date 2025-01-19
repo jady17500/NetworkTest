@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
@@ -19,6 +20,12 @@ namespace StarterAssets
 		[Header("Mouse Cursor Settings")]
 		public bool cursorLocked = false;
 		public bool cursorInputForLook = true;
+
+		[Header("Weapon Settings")] 
+		public WeaponScript weaponScript;
+		
+		[Header("Taunt Settings")]
+		public AudioSource tauntSound;
 
 #if ENABLE_INPUT_SYSTEM
 		public void OnMove(InputValue value)
@@ -43,6 +50,22 @@ namespace StarterAssets
 		{
 			SprintInput(value.isPressed);
 		}
+
+		public void OnFire(InputValue value)
+		{
+			if (value.isPressed)
+				ShootInput();
+				
+			
+		}
+
+		public void OnTaunt(InputValue value)
+		{
+			if(value.isPressed)
+				GetComponent<TauntScript>().TauntRpc();
+		}
+		
+		
 #endif
 
 
@@ -76,6 +99,17 @@ namespace StarterAssets
 			Cursor.lockState = newState ? CursorLockMode.Confined : CursorLockMode.None;
 			
 		}
+		
+		private void ShootInput()
+		{
+			weaponScript.FireRpc();
+			weaponScript.SoundRpc();
+		}
+
+
+
+		
+		
 	}
 	
 }

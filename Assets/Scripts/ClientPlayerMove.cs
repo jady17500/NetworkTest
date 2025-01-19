@@ -13,9 +13,7 @@ public class ClientPlayerMove : NetworkBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        playerInputs.enabled = false;
-        starterInputs.enabled = false;
-        thirdPersonController.enabled = false;
+        ToggleInputs(false);
     }
 
     // Update is called once per frame
@@ -25,10 +23,16 @@ public class ClientPlayerMove : NetworkBehaviour
 
         if (IsOwner)
         {
-            starterInputs.enabled = true;
-            playerInputs.enabled = true;
-            thirdPersonController.enabled = true;
+            ToggleInputs(true);
             gameObject.GetComponent<ClientFollowCamera>().SpawnCamera();
         }
+    }
+
+
+    public void ToggleInputs(bool toggle)
+    {
+        starterInputs.enabled = toggle;
+        playerInputs.enabled = toggle;
+        thirdPersonController.enabled = toggle;
     }
 }
