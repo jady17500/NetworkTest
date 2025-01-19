@@ -1,1 +1,1 @@
-<h1>ZSinple multiplayer shooter game</h1>
+<h1>Sinple multiplayer shooter game</h1>
